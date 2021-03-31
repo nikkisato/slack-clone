@@ -23,6 +23,8 @@ function Header() {
   );
 }
 
+export default Header;
+
 const HeaderContainer = styled.div`
   display: flex;
   position: fixed;
@@ -83,4 +85,3 @@ const HeaderRight = styled.div`
     margin-right: 20px;
   }
 `;
-export default Header;
