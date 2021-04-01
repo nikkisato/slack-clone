@@ -14,7 +14,6 @@ function Login() {
       <LoginInnerContainer>
         <img
           src='https://image.flaticon.com/icons/png/512/2111/2111615.png'
-          //  src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Slack_Technologies_Logo.svg/1200px-Slack_Technologies_Logo.svg.png'
           alt='slack logo'
         />
 
