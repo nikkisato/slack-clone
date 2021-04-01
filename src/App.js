@@ -4,22 +4,30 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Chat from './components/Chat';
+import Login from './components/Login';
 import styled from 'styled-components';
+import { auth } from './firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 function App() {
+  const [user, loading] = useAuthState(auth);
   return (
     <div className='app'>
       <Router>
-        <>
-          <Header />
-          <AppBody>
-            <Sidebar />
-            <Switch>
-              <Route path='/' exact>
-                <Chat />
-              </Route>
-            </Switch>
-          </AppBody>
-        </>
+        {!user ? (
+          <Login />
+        ) : (
+          <>
+            <Header />
+            <AppBody>
+              <Sidebar />
+              <Switch>
+                <Route path='/' exact>
+                  <Chat />
+                </Route>
+              </Switch>
+            </AppBody>
+          </>
+        )}
       </Router>
     </div>
   );

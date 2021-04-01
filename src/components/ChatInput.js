@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
-import { db } from '../firebase';
+import { db, auth } from '../firebase';
 import firebase from 'firebase';
 import { useSelector } from 'react-redux';
 import { selectRoomId } from '../features/appSlice';
 import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
-
+import { useAuthState } from 'react-firebase-hooks/auth';
 function ChatInput({ channelName, channelId, chatRef }) {
   const [input, setInput] = useState('');
-
+  const [user] = useAuthState(auth);
   const sendMessage = e => {
     e.preventDefault();
 
@@ -20,9 +20,8 @@ function ChatInput({ channelName, channelId, chatRef }) {
     db.collection('rooms').doc(channelId).collection('messages').add({
       message: input,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      user: 'Nikki Sato',
-      userImage:
-        'https://pbs.twimg.com/profile_images/1328417902978973696/lMee7Kdz_400x400.jpg',
+      user: user.displayName,
+      userImage: user.photoURL,
     });
     chatRef.current.scrollIntoView({ behavior: 'smooth' });
 
